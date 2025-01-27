@@ -3,25 +3,24 @@ using UnityEngine;
 
 public enum EUnitType
 {
-    Playable,
-    Object,
+    Playable, // キャラクター
+    Object, // オブジェクト
 }
 
 public enum EInputState
 {
-    Control,
-    UnControl,
+    Control,// 操作可能状態
+    UnControl, // 操作不可能状態
 }
 public enum EUnitState
 {
-    Free,
-    Move,
-    Damage,
-    Dead,
-    Cliff,
-    CliffUp,
-    Guard,
-    Escape,
+    Free, // 基本状態
+    Damage, // ダメージ硬直
+    Dead, // 死亡
+    Cliff, // 崖捕まり中
+    CliffUp, // 崖登り中
+    Guard, // ガード中
+    Escape, // 回避中
 }
 
 public class StateManager : MonoBehaviour
@@ -37,8 +36,6 @@ public class StateManager : MonoBehaviour
     {
         // Events
         _inputReader.MoveEvent += OnMoveHandle;
-
-
         // Reactive
         UnitState
             .Subscribe((state) => 
@@ -53,7 +50,6 @@ public class StateManager : MonoBehaviour
                         break;
                 }
             });
-
         InputState
            .Subscribe((input) =>
            {

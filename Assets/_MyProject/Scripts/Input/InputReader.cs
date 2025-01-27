@@ -38,6 +38,7 @@ public class InputReader : ScriptableObject, IPlayerActions
 
     public void OnCrouch(InputAction.CallbackContext context)
     {
+        //throw new NotImplementedException();
     }
 
     public void OnInteract(InputAction.CallbackContext context)

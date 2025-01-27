@@ -9,7 +9,8 @@ public class UtilityFunction : MonoBehaviour
     /// <param name="effectPrefab">エフェクトプレハブ</param>
     /// <param name="loop">パーティクルシステムのループ</param>
     /// <param name="parentObject">設定したい親オブジェクト</param>
-    public static void PlayEffect(GameObject root, GameObject effectPrefab, bool loop = false, GameObject parentObject = null, float destroyTime = 5f)
+    public static void PlayEffect(GameObject root, GameObject effectPrefab, 
+        bool loop = false, GameObject parentObject = null, float destroyTime = 5f)
     {
         if (effectPrefab == null)
         {
