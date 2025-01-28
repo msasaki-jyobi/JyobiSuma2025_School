@@ -27,7 +27,7 @@ public class HitCollider : MonoBehaviour
         if(hit.TryGetComponent(out Health health))
         {
             // ダメージ処理
-            health.TakeDamage(_damageAmount);
+            health.TakeDamage(_damageAmount, contactPoint);
 
             // 移動可能オブジェクトなら吹き飛ばす
             if (hit.TryGetComponent(out Gravity gravity))

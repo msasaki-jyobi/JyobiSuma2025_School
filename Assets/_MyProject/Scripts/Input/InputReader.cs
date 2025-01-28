@@ -11,17 +11,17 @@ public class InputReader : ScriptableObject, IPlayerActions
     public event Action<bool> PrimaryJumpEvent; // ジャンプ判定
     public event Action<Vector2> MoveEvent; // 移動入力判定
 
-    private InputSystem_Actions _control;
+    public InputSystem_Actions Control { get; private set; }
 
     private void OnEnable()
     {
-        if (_control == null)
+        if (Control == null)
         {
-            _control = new InputSystem_Actions();
-            _control.Player.SetCallbacks(this);
+            Control = new InputSystem_Actions();
+            Control.Player.SetCallbacks(this);
         }
 
-        _control.Player.Enable(); // キー入力検知可能に
+        Control.Player.Enable(); // キー入力検知可能に
     }
 
     public void OnAttack(InputAction.CallbackContext context)
@@ -67,7 +67,17 @@ public class InputReader : ScriptableObject, IPlayerActions
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        MoveEvent?.Invoke(context.ReadValue<Vector2>());
+        if (context.performed) // キーが押されている間呼び続ける
+        {
+            Vector2 movement = context.ReadValue<Vector2>();
+            Debug.Log($"Move input: {movement}");
+            MoveEvent?.Invoke(movement);
+        }
+        else if (context.canceled) // キーが離されたらゼロベクトルを送る
+        {
+            Debug.Log("Move input canceled");
+            MoveEvent?.Invoke(Vector2.zero);
+        }
     }
 
     public void OnNext(InputAction.CallbackContext context)

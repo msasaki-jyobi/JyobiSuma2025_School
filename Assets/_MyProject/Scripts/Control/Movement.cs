@@ -1,5 +1,6 @@
 using UnityEngine;
 using UniRx;
+using UnityEngine.InputSystem;
 
 public class Movement : MonoBehaviour
 {
@@ -22,17 +23,21 @@ public class Movement : MonoBehaviour
 
     private float _rotateSpeed = 20000f;
 
+    private InputAction _moveAction;
+
     private void Start()
     {
         _camera = Camera.main;
-        _inputReader.MoveEvent += OnMoveHandle;
-
-
-            
+        _moveAction = _inputReader.Control.Player.Move;
     }
+
     private void Update()
     {
+        if (!OnInputCheck())
+            InputReset();
+        Move();
         Rotation();
+
     }
     /// <summary>
     /// キー入力の移動値を取得するメソッド
@@ -40,16 +45,33 @@ public class Movement : MonoBehaviour
     /// <param name="input"></param>
     private void OnMoveHandle(Vector2 input)
     {
-        if (_state.InputState.Value == EInputState.UnControl) return;
         _inputX = input.x;
         _inputY = input.y;
     }
+
+    private bool OnInputCheck()
+    {
+        // 現在の入力値を取得
+        Vector2 input = _moveAction.ReadValue<Vector2>();
+        OnMoveHandle(input);
+
+        bool check = true;
+        check = check && _state.InputState.Value == EInputState.Control;
+        check = check && _state.UnitState.Value == EUnitState.Free;
+        return check;
+    }
+
     /// <summary>
     /// ユニットの移動制御
     /// </summary>
     private void Move()
     {
-        
+        // 倒した方向が歩ける角度なら
+        if (CheckSloopAngle())
+        {
+            Vector3 velocity = new Vector3(_inputVelocity.x * WalkPower, _rigidbody.linearVelocity.y, _inputVelocity.z * WalkPower);
+            _gravity.SetInput(velocity);
+        }
     }
     /// <summary>
     /// ユニットの回転制御
@@ -64,20 +86,15 @@ public class Movement : MonoBehaviour
         // 移動方向を向く
         if (_inputVelocity.magnitude > 0.5f)
             _targetRotation = Quaternion.LookRotation(_inputVelocity, Vector3.up);
-        // なめらかに振り向く
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, _targetRotation, rotationSpeed);
 
         // 速度をAnimatorに反映する
         _animator?.SetFloat("Speed", _inputVelocity.magnitude, 0.1f, Time.deltaTime);
 
-        // 倒した方向が歩ける角度なら
-        if (CheckSloopAngle())
-        {
-            Vector3 velocity = new Vector3(_inputVelocity.x * WalkPower, _rigidbody.linearVelocity.y, _inputVelocity.z* WalkPower);
-            _gravity.SetInput(velocity);
-        }
+        if (Mathf.Abs(_inputX) > 0)
+            // なめらかに振り向く
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, _targetRotation, rotationSpeed);
     }
-    
+
     /// <summary>
     /// 角度を検知して移動可能か判定
     /// </summary>
@@ -111,6 +128,8 @@ public class Movement : MonoBehaviour
     /// </summary>
     private void InputReset()
     {
+        _inputX = 0;
+        _inputY = 0;
         _inputVelocity = Vector3.zero;
     }
 }

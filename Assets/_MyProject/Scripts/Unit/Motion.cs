@@ -21,6 +21,7 @@ public class Motion : MonoBehaviour
     {
         if(setState != EUnitState.None)
             _state.UnitState.Value = setState;
+
         _animator.SetTrigger("Action");
         _animator.SetInteger("State", state);
     }
