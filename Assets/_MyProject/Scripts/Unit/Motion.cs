@@ -16,4 +16,17 @@ public class Motion : MonoBehaviour
                 break;
         }
     }
+
+    public void PlayAttack(int state)
+    {
+        _state.UnitState.Value = EUnitState.Action;
+        _animator.SetTrigger("Action");
+        _animator.SetInteger("State", state);
+    }
+
+    public void SetState(int state)
+    {
+        _animator.SetTrigger("Action");
+        _animator.SetInteger("State", state);
+    }
 }

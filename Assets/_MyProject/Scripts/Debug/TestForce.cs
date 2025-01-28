@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class TestForce : MonoBehaviour
 {
-    [SerializeField] private Movement _movement;
+    [SerializeField] private Gravity _gravity;
     [SerializeField] private Vector3 _forcePower;
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.G))
-            _movement.AddExternalForce(_forcePower);
+            _gravity.AddExternalForce(_forcePower);
     }
 }

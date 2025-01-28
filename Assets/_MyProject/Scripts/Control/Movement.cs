@@ -1,4 +1,5 @@
 using UnityEngine;
+using UniRx;
 
 public class Movement : MonoBehaviour
 {
@@ -6,34 +7,32 @@ public class Movement : MonoBehaviour
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private Animator _animator;
     [SerializeField] private StateManager _state;
+    [SerializeField] private Gravity _gravity;
 
     [field: SerializeField] public float WalkPower { get; private set; } = 6f;
-    [SerializeField] private float _weight = 600f;
-    [SerializeField] private float _forceMultiplier = 2f; // 外力の強さ(高いほど吹き飛ぶ）
-    [SerializeField] private float _dampingSpeed = 5f; // 外力の減衰スピード
     [SerializeField] private float _maxSlopeAngle = 45f;
     [SerializeField] private float _slopeDistance = 0.2f;
 
     private Camera _camera;
     private float _inputX;
     private float _inputY;
+
     private Vector3 _inputVelocity; // 入力による移動ベクトル
     private Quaternion _targetRotation; // 入力による回転ベクトル
-    private Vector3 _externalForce; // 外力を保持する変数
+
     private float _rotateSpeed = 20000f;
 
     private void Start()
     {
         _camera = Camera.main;
         _inputReader.MoveEvent += OnMoveHandle;
+
+
+            
     }
     private void Update()
     {
         Rotation();
-    }
-    private void FixedUpdate()
-    {
-        Move();
     }
     /// <summary>
     /// キー入力の移動値を取得するメソッド
@@ -50,26 +49,7 @@ public class Movement : MonoBehaviour
     /// </summary>
     private void Move()
     {
-        // 外力を減衰させる（徐々に0に近づく）
-        _externalForce = Vector3.Lerp(_externalForce, Vector3.zero, Time.fixedDeltaTime * _dampingSpeed);
-        // 移動可能な角度かチェック
-        if (CheckSloopAngle())
-        {
-            // 入力による移動と外力を組み合わせてVelocityを設定
-            Vector3 newVelocity =
-                new Vector3(_inputVelocity.x * WalkPower, _rigidbody.velocity.y, _inputVelocity.z * WalkPower) + _externalForce;
-            _rigidbody.velocity = newVelocity;
-        }
-        else
-        {
-            // 角度が不適切な場合、外力のみ適用して移動なし
-            _rigidbody.velocity = new Vector3(_externalForce.x, _rigidbody.velocity.y, _externalForce.z);
-        }
-        // 重力を追加（必要であれば）
-        if (_weight > 0)
-        {
-            _rigidbody.AddForce(Vector3.down * _weight * Time.fixedDeltaTime, ForceMode.Acceleration);
-        }
+        
     }
     /// <summary>
     /// ユニットの回転制御
@@ -89,7 +69,15 @@ public class Movement : MonoBehaviour
 
         // 速度をAnimatorに反映する
         _animator?.SetFloat("Speed", _inputVelocity.magnitude, 0.1f, Time.deltaTime);
+
+        // 倒した方向が歩ける角度なら
+        if (CheckSloopAngle())
+        {
+            Vector3 velocity = new Vector3(_inputVelocity.x * WalkPower, _rigidbody.linearVelocity.y, _inputVelocity.z* WalkPower);
+            _gravity.SetInput(velocity);
+        }
     }
+    
     /// <summary>
     /// 角度を検知して移動可能か判定
     /// </summary>
@@ -116,15 +104,6 @@ public class Movement : MonoBehaviour
         {
             return true;
         }
-    }
-
-    // 外力を加えるためのメソッド
-    public void AddExternalForce(Vector3 force)
-    {
-        _externalForce += force * _forceMultiplier;
-        _externalForce.y = 0;
-
-        _rigidbody.AddForce(transform.up * force.y, ForceMode.Impulse);
     }
 
     /// <summary>

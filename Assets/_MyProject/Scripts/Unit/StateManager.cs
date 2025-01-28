@@ -15,6 +15,7 @@ public enum EInputState
 public enum EUnitState
 {
     Free, // 基本状態
+    Action, 
     Damage, // ダメージ硬直
     Dead, // 死亡
     Cliff, // 崖捕まり中
