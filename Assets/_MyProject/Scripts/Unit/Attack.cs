@@ -47,7 +47,7 @@ public class Attack : MonoBehaviour
         if (check) // 条件を満たした場合
         {
             var state = GetAttackState(keyType);
-            _motion.PlayAttack(state);
+            _motion.SetState(state, EUnitState.Action);
 
         }
     }

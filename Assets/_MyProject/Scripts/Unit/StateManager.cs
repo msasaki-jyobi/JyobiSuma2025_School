@@ -14,6 +14,7 @@ public enum EInputState
 }
 public enum EUnitState
 {
+    None,
     Free, // 基本状態
     Action, 
     Damage, // ダメージ硬直
