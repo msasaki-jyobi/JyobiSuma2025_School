@@ -7,6 +7,12 @@ public class HitCollider : MonoBehaviour
     [SerializeField] private float _forcePower = 10f; // 吹き飛ばす力の強さ
     [SerializeField] private float _forceUpMultiplier = 2.5f; // 上へ吹き飛ばす力の強さ
     [SerializeField] private float _damageAmount;
+    [SerializeField] private GameObject _enableEffect;
+
+    private void OnEnable()
+    {
+        UtilityFunction.PlayEffect(gameObject, _enableEffect);
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
