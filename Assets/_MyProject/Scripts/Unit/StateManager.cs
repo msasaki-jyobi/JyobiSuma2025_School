@@ -73,7 +73,7 @@ public class StateManager : MonoBehaviour
 
     private void OnMoveHandle(Vector2 input)
     {
-        Debug.Log($"移動 入力値:{input}");
+        //Debug.Log($"移動 入力値:{input}");
     }
 
     private void CheckGround()
