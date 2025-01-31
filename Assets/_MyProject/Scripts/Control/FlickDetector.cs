@@ -6,10 +6,9 @@ using System.Collections.Generic;
 /// <summary>
 /// はじき入力を検知するクラス
 /// </summary>
-public class FlickDetector : MonoBehaviour
+public class FlickDetector : InputBase
 {
-    [SerializeField] private InputReader _inputReader;
-    public event Action<Vector2> OnFlickDetected; // はじきが発生した時のイベント
+    [SerializeField] private bool _isLog;
 
     private float _flickThreshold = 0.8f; // スティックのはじき判定しきい値
     private float _flickTimeLimit = 0.1f; // はじき受付時間（共通）
@@ -19,10 +18,22 @@ public class FlickDetector : MonoBehaviour
     private float _flickStartTime = -1f; // はじき受付開始時間
     public bool IsFlicking { get; private set; } = false; // スマッシュ技受付
 
+    public event Action<Vector2> OnFlickDetected; // はじきが発生した時のイベント
+
+    protected override void Start()
+    {
+        base.Start();
+        // InputReader の MoveEvent を購読
+        _inputReader.MoveEvent += DetectFlick;
+    }
+
     private void Update()
     {
-        Debug.Log($"Gamepad.current: {(Gamepad.current != null ? "接続中" : "未接続")}");
-        Debug.Log($"Keyboard.current: {(Keyboard.current != null ? "接続中" : "未接続")}");
+        if(_isLog)
+        {
+            Debug.Log($"Name:{gameObject.name}, Gamepad.current: {(Gamepad.current != null ? "接続中" : "未接続")}");
+            Debug.Log($"Name:{gameObject.name}, Keyboard.current: {(Keyboard.current != null ? "接続中" : "未接続")}");
+        }
 
         if (IsFlicking && Time.time - _flickStartTime > _flickTimeLimit)
         {
@@ -31,18 +42,7 @@ public class FlickDetector : MonoBehaviour
         }
     }
 
-    private void OnEnable()
-    {
-        if (_inputReader == null)
-        {
-            return;
-        }
-
-        // InputReader の MoveEvent を購読
-        _inputReader.MoveEvent += DetectFlick;
-    }
-
-    private void OnDisable()
+    private void OnDestroy()
     {
         if (_inputReader != null)
         {
@@ -55,7 +55,6 @@ public class FlickDetector : MonoBehaviour
     /// </summary>
     private void DetectFlick(Vector2 input)
     {
-        Debug.Log($"a");
         // スティックのはじき判定
         if (Gamepad.current != null) // ゲームパッドが接続されている場合
         {

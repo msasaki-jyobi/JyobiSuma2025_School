@@ -6,6 +6,8 @@ public class Motion : MonoBehaviour
     [SerializeField] private StateManager _state;
     [SerializeField] private Animator _animator;
 
+
+
     private void Update()
     {
         switch (_state.UnitState.Value)

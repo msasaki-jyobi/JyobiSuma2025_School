@@ -35,9 +35,11 @@ public class Gravity : MonoBehaviour
         // 外力を減衰させる（徐々に0に近づく）
         _externalForce = Vector3.Lerp(_externalForce, Vector3.zero, Time.fixedDeltaTime * _dampingSpeed);
 
+        _inputVelocity.y = _rigidbody.linearVelocity.y;
         // 入力による移動と外力を組み合わせてVelocityを設定
         Vector3 newVelocity =
             _inputVelocity + _externalForce;
+
         _rigidbody.linearVelocity = newVelocity;
 
         // 重力を追加

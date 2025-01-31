@@ -580,6 +580,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1395633736}
     - target: {fileID: 2350096851836601776, guid: 9720a05de61f35641836f5c90d49c5a2, type: 3}
+      propertyPath: _dashRange
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2350096851836601776, guid: 9720a05de61f35641836f5c90d49c5a2, type: 3}
+      propertyPath: FlickDetector
+      value: 
+      objectReference: {fileID: 1395633722}
+    - target: {fileID: 2350096851836601776, guid: 9720a05de61f35641836f5c90d49c5a2, type: 3}
+      propertyPath: _flickDetector
+      value: 
+      objectReference: {fileID: 1395633722}
+    - target: {fileID: 2350096851836601776, guid: 9720a05de61f35641836f5c90d49c5a2, type: 3}
       propertyPath: _inputReaderInitializer
       value: 
       objectReference: {fileID: 1395633736}
@@ -627,6 +639,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5412016833907600464, guid: 9720a05de61f35641836f5c90d49c5a2, type: 3}
+      propertyPath: _inputReaderInitializer
+      value: 
+      objectReference: {fileID: 1395633736}
     - target: {fileID: 5822720945326688268, guid: 9720a05de61f35641836f5c90d49c5a2, type: 3}
       propertyPath: m_Constraints
       value: 120
@@ -1336,6 +1352,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3378721389160701992, guid: 9720a05de61f35641836f5c90d49c5a2, type: 3}
   m_PrefabInstance: {fileID: 960611990}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1395633722 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5412016833907600464, guid: 9720a05de61f35641836f5c90d49c5a2, type: 3}
+  m_PrefabInstance: {fileID: 960611990}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1395633719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 160ded9d45d0f684b90a205137238dfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1395633736
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1349,7 +1376,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <InputReader>k__BackingField: {fileID: 11400000, guid: 1a68202d15eeda74ebf3caa95dd8dc8d, type: 2}
-  _useKeyboardOnly: 1
+  _useKeyboardOnly: 0
 --- !u!1 &1838470208
 GameObject:
   m_ObjectHideFlags: 0

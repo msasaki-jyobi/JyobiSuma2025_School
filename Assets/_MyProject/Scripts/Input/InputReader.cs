@@ -12,6 +12,7 @@ public class InputReader : ScriptableObject, IPlayerActions
     public event Action StartedJumpEvent;
     public event Action<bool> PrimaryJumpEvent;
     public event Action<Vector2> MoveEvent;
+    public event Action CanceledMoveEvent;
     public event Action<bool> PrimaryAimEvent;
 
     public InputSystem_Actions Control { get; private set; }
@@ -75,6 +76,9 @@ public class InputReader : ScriptableObject, IPlayerActions
     public void OnMove(InputAction.CallbackContext context)
     {
         MoveEvent?.Invoke(context.performed ? context.ReadValue<Vector2>() : Vector2.zero);
+
+        if (context.canceled)
+            CanceledMoveEvent?.Invoke();
     }
 
     public void OnAim(InputAction.CallbackContext context)

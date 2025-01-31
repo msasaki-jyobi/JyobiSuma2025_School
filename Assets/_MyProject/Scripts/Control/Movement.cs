@@ -1,15 +1,19 @@
 using UnityEngine;
 using UniRx;
 using UnityEngine.InputSystem;
+using System;
+using Cysharp.Threading.Tasks;
 
 public class Movement : InputBase
 {
+    [SerializeField] private FlickDetector _flickDetector;
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private Animator _animator;
     [SerializeField] private StateManager _state;
     [SerializeField] private Gravity _gravity;
 
     [field: SerializeField] public float WalkPower { get; private set; } = 6f;
+    [SerializeField] private float _dashRange = 3f;
     [SerializeField] private float _maxSlopeAngle = 45f;
     [SerializeField] private float _slopeDistance = 0.2f;
 
@@ -21,15 +25,25 @@ public class Movement : InputBase
     private Quaternion _targetRotation; // 入力による回転ベクトル
 
     private float _rotateSpeed = 20000f;
+    private float _defaultWalkPower;
 
     private InputAction _moveAction;
 
     protected override void Start()
     {
         base.Start();
+
         _camera = Camera.main;
+        _defaultWalkPower = WalkPower;
+
         _moveAction = _inputReader.Control.Player.Move;
+        _flickDetector.OnFlickDetected += OnFlickHandle;
+        _inputReader.CanceledMoveEvent += OnCanceledHandle;
+        ;
     }
+
+
+
     private void Update()
     {
         if (!OnInputCheck())
@@ -46,14 +60,26 @@ public class Movement : InputBase
     {
         _inputX = input.x;
         _inputY = input.y;
+
+    }
+    private async void OnFlickHandle(Vector2 vector)
+    {
+        Debug.Log($"はじき；{vector}");
+        WalkPower = _defaultWalkPower * _dashRange;
+    }
+
+    private void OnCanceledHandle()
+    {
+        if (!_flickDetector.IsFlicking)
+            WalkPower = _defaultWalkPower;
     }
 
     private bool OnInputCheck()
     {
         // 現在の入力値を取得
         Vector2 input = _moveAction.ReadValue<Vector2>();
-        OnMoveHandle(input);
 
+        OnMoveHandle(input);
         bool check = true;
         check = check && _state.InputState.Value == EInputState.Control;
         check = check && _state.UnitState.Value == EUnitState.Free;
@@ -68,7 +94,7 @@ public class Movement : InputBase
         // 倒した方向が歩ける角度なら
         if (CheckSloopAngle())
         {
-            Vector3 velocity = new Vector3(_inputVelocity.x * WalkPower, _rigidbody.linearVelocity.y, _inputVelocity.z * WalkPower);
+            Vector3 velocity = new Vector3(_inputVelocity.x * WalkPower, 0, _inputVelocity.z * WalkPower);
             _gravity.SetInput(velocity);
         }
     }
