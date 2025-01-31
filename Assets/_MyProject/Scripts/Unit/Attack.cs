@@ -79,7 +79,9 @@ public class Attack : InputBase
         var state = GetAttackState(keyType);
         _activeState = state; // 技を確定させる
 
-        if (_state.CanJump.Value)
+        var ground = _state.CanJump.Value;
+
+        if (ground)
         {
             _motion.SetApplyRootMotion(true);
             _gravity.IsUnGravity = true;
@@ -87,7 +89,7 @@ public class Attack : InputBase
 
         if (!_isSmash.Value) // スマッシュアクションじゃない
         {
-            if (_flickDetector.IsFlicking) // はじき入力中
+            if (_flickDetector.IsFlicking && ground) // はじき入力中
             {
                 _isSmash.Value = true; // スマッシュアクションフラグON
                 _motion.SetState(500); // スマッシュアクション実施
@@ -99,7 +101,7 @@ public class Attack : InputBase
             else // 通常攻撃アクション
             {
                 _motion.SetState(state, EUnitState.Action);
-                if (_state.CanJump.Value)
+                if (ground)
                     _state.InputState.Value = EInputState.UnControl;
             }
         }

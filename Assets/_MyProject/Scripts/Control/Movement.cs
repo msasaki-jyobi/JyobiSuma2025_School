@@ -73,7 +73,7 @@ public class Movement : InputBase
     /// </summary>
     private void Move()
     {
-        // 倒した方向が歩ける角度なら
+        // 倒した方向が歩ける角度
         if (CheckSloopAngle())
         {
             Vector3 velocity = new Vector3(_inputVelocity.x * WalkPower, 0, _inputVelocity.z * WalkPower);
@@ -86,10 +86,13 @@ public class Movement : InputBase
     private void Rotation()
     {
         float rotY = _camera.transform.rotation.eulerAngles.y;
+
         // カメラから見て向く方角を計算
         var tpsHorizontalRotation = Quaternion.AngleAxis(rotY, Vector3.up);
-        _inputVelocity = tpsHorizontalRotation * new Vector3(_inputX, 0, _inputY).normalized;
+        //_inputVelocity = tpsHorizontalRotation * new Vector3(_inputX, 0, _inputY).normalized;
+        _inputVelocity = tpsHorizontalRotation * new Vector3(_inputX, 0, 0).normalized;
         var rotationSpeed = _rotateSpeed * Time.deltaTime;
+
         // 移動方向を向く
         if (_inputVelocity.magnitude > 0.5f)
             _targetRotation = Quaternion.LookRotation(_inputVelocity, Vector3.up);
