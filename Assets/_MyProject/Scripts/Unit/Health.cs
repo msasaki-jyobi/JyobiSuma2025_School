@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using UniRx;
 using UnityEngine;
 
@@ -5,6 +6,10 @@ public class Health : MonoBehaviour
 {
     [SerializeField] private StateManager _state;
     [SerializeField] private Motion _motion;
+    [SerializeField] private Rigidbody _rigidbody;
+    [SerializeField] private CapsuleCollider _capsuleCollider;
+    [SerializeField] private GameObject _character;
+
 
     public ReactiveProperty<float> UnitHealht = new ReactiveProperty<float>();
 
@@ -47,5 +52,19 @@ public class Health : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Euler(0, targetRotation.eulerAngles.y, 0); // Y軸の回転だけ適用
         }
+    }
+
+    public async void Dead()
+    {
+        _character.SetActive(false);
+        transform.position = Vector3.zero;
+        _rigidbody.isKinematic = true;
+        _capsuleCollider.enabled = false;
+
+        await UniTask.Delay(3000);
+        UnitHealht.Value = 0;
+        _rigidbody.isKinematic = false;
+        _capsuleCollider.enabled = true;
+        _character.SetActive(true);
     }
 }

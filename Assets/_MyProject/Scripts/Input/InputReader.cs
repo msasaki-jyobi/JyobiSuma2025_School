@@ -5,8 +5,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine.InputSystem.Utilities;
 
-[CreateAssetMenu(fileName = "InputReader", menuName = "Input/InputReader")]
-public class InputReader : ScriptableObject, IPlayerActions
+public class InputReader : MonoBehaviour, IPlayerActions
 {
     public event Action<bool> PrimaryAttackEvent;
     public event Action StartedJumpEvent;
