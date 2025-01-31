@@ -37,26 +37,16 @@ public class Movement : InputBase
         _defaultWalkPower = WalkPower;
 
         _moveAction = _inputReader.Control.Player.Move;
-        _flickDetector.OnFlickDetected += OnFlickHandle;
         _inputReader.CanceledMoveEvent += OnCanceledHandle;
-        ;
     }
-
-
 
     private void Update()
     {
-        if (!OnInputCheck())
+        if (!UnInputCheck())
             InputReset();
         Move();
         Rotation();
 
-    }
-
-    private async void OnFlickHandle(Vector2 vector)
-    {
-        Debug.Log($"はじき；{vector}");
-        WalkPower = _defaultWalkPower * _dashRange;
     }
 
     private void OnCanceledHandle()
@@ -65,7 +55,7 @@ public class Movement : InputBase
             WalkPower = _defaultWalkPower;
     }
 
-    private bool OnInputCheck()
+    private bool UnInputCheck()
     {
         // 現在の入力値を取得
         Vector2 input = _moveAction.ReadValue<Vector2>();
@@ -74,7 +64,7 @@ public class Movement : InputBase
 
         bool check = true;
         check = check && _state.InputState.Value == EInputState.Control;
-        check = check && _state.UnitState.Value == EUnitState.Free;
+        //check = check && _state.UnitState.Value == EUnitState.Free;
         return check;
     }
 

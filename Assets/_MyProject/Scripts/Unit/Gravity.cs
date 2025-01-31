@@ -11,6 +11,7 @@ public class Gravity : MonoBehaviour
     [SerializeField] private float _forceMultiplier = 2f; // 外力の強さ(高いほど吹き飛ぶ）
     [SerializeField] private float _forceResistance = 12f; // 吹き飛びの抵抗力
 
+    public bool IsUnGravity;
 
     private float _defaultForceMultiplier;
     private Vector3 _externalForce; // 外力を保持する変数
@@ -32,6 +33,8 @@ public class Gravity : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (IsUnGravity) return;
+
         // 外力を減衰させる（徐々に0に近づく）
         _externalForce = Vector3.Lerp(_externalForce, Vector3.zero, Time.fixedDeltaTime * _dampingSpeed);
 

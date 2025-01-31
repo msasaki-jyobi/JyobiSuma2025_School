@@ -26,4 +26,10 @@ public class Motion : MonoBehaviour
         _animator.SetTrigger("Action");
         _animator.SetInteger("State", state);
     }
+
+    public void SetApplyRootMotion(bool flg)
+    {
+        _animator.applyRootMotion = flg;
+        _animator.animatePhysics = flg;
+    }
 }
