@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Windows;
 
-public class Attack : MonoBehaviour
+public class Attack : InputBase
 {
-    [SerializeField] private InputReader _inputReader;
     [SerializeField] private StateManager _state;
     [SerializeField] private Motion _motion;
     [SerializeField] private List<GameObject> _attackCollider;
@@ -13,8 +12,9 @@ public class Attack : MonoBehaviour
     private float _inputX;
     private float _inputY;
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         _inputReader.MoveEvent += OnMoveHandle;
         _inputReader.PrimaryAttackEvent += OnPrimaryAttackHandle;
     }

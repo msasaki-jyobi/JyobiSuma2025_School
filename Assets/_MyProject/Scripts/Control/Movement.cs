@@ -2,9 +2,8 @@ using UnityEngine;
 using UniRx;
 using UnityEngine.InputSystem;
 
-public class Movement : MonoBehaviour
+public class Movement : InputBase
 {
-    [SerializeField] private InputReader _inputReader;
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private Animator _animator;
     [SerializeField] private StateManager _state;
@@ -25,12 +24,12 @@ public class Movement : MonoBehaviour
 
     private InputAction _moveAction;
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         _camera = Camera.main;
         _moveAction = _inputReader.Control.Player.Move;
     }
-
     private void Update()
     {
         if (!OnInputCheck())

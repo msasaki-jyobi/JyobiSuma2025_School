@@ -22,8 +22,6 @@ GameObject:
   - component: {fileID: 2019630215430768052}
   - component: {fileID: 8874458411080542054}
   - component: {fileID: 5412016833907600464}
-  - component: {fileID: 557248121784436360}
-  - component: {fileID: 2932994404996258891}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -150,7 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca3f5bc53d15fe748a28e3c1767acbb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputReader: {fileID: 557248121784436360}
+  _inputReader: {fileID: 11400000, guid: 1a68202d15eeda74ebf3caa95dd8dc8d, type: 2}
   _groundLineData: {fileID: 11400000, guid: f6752c62e971d984298d36879c9e2fa5, type: 2}
   InputState:
     value: 0
@@ -170,7 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cd9d83079de100488993ffcd6d71995, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputReader: {fileID: 557248121784436360}
+  _inputReader: {fileID: 11400000, guid: 1a68202d15eeda74ebf3caa95dd8dc8d, type: 2}
   _rigidbody: {fileID: 5822720945326688268}
   _animator: {fileID: 2369237211336064484}
   _state: {fileID: 75165701772597207}
@@ -204,7 +202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 468ad7a430538c24c86f5079b48c73c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputReader: {fileID: 557248121784436360}
+  _inputReader: {fileID: 11400000, guid: 1a68202d15eeda74ebf3caa95dd8dc8d, type: 2}
   _animator: {fileID: 2369237211336064484}
   _state: {fileID: 75165701772597207}
   _rigidbody: {fileID: 5822720945326688268}
@@ -224,7 +222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcc8b2ce16f9bbc419d3392b1f39038c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputReader: {fileID: 557248121784436360}
+  _inputReader: {fileID: 11400000, guid: 1a68202d15eeda74ebf3caa95dd8dc8d, type: 2}
   _state: {fileID: 75165701772597207}
   _animator: {fileID: 2369237211336064484}
 --- !u!114 &3236675830374394807
@@ -255,7 +253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 486af2799066b0b4983e2a28f0a9a0b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputReader: {fileID: 557248121784436360}
+  _inputReader: {fileID: 11400000, guid: 1a68202d15eeda74ebf3caa95dd8dc8d, type: 2}
   _state: {fileID: 75165701772597207}
   _motion: {fileID: 7989969267937131037}
   _attackCollider:
@@ -293,49 +291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 160ded9d45d0f684b90a205137238dfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputReader: {fileID: 557248121784436360}
---- !u!114 &557248121784436360
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3378721389160701992}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f14175abd7433114a902ec5958ff0a2b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2932994404996258891
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3378721389160701992}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 289c1b55c9541489481df5cc06664110, type: 3}
-  m_NotificationBehavior: 0
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: 
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
+  _inputReader: {fileID: 11400000, guid: 1a68202d15eeda74ebf3caa95dd8dc8d, type: 2}
 --- !u!1 &5716924954719782628
 GameObject:
   m_ObjectHideFlags: 0

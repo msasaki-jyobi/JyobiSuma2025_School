@@ -25,24 +25,25 @@ public enum EUnitState
     Escape, // 回避中
 }
 
-public class StateManager : MonoBehaviour
+public class StateManager : InputBase
 {
-    [SerializeField] private InputReader _inputReader;
     [SerializeField] private LineData _groundLineData;
 
     public ReactiveProperty<EInputState> InputState = new ReactiveProperty<EInputState>(); // キー入力可能な状態
     public ReactiveProperty<EUnitState> UnitState = new ReactiveProperty<EUnitState>(); // ユニットの状態
     public ReactiveProperty<bool> CanJump = new ReactiveProperty<bool>();
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+        _inputReader = _inputReaderInitializer.InputReader;
         // Events
         _inputReader.MoveEvent += OnMoveHandle;
         // Reactive
         UnitState
-            .Subscribe((state) => 
+            .Subscribe((state) =>
             {
-                switch(state)
+                switch (state)
                 {
                     case EUnitState.Damage:
                         InputState.Value = EInputState.UnControl;

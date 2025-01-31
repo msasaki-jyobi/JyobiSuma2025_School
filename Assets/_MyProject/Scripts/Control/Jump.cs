@@ -3,9 +3,10 @@ using UniRx;
 using System;
 using Cysharp.Threading.Tasks;
 
-public class Jump : MonoBehaviour
+public class Jump : InputBase
 {
-    [SerializeField] private InputReader _inputReader;
+
+
     [SerializeField] private Animator _animator;
     [SerializeField] private StateManager _state;
     [SerializeField] private Rigidbody _rigidbody;
@@ -16,8 +17,9 @@ public class Jump : MonoBehaviour
 
     private int _jumpCount;
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         _inputReader.StartedJumpEvent += OnStartedJumpEvent;
         _inputReader.PrimaryJumpEvent += OnPrimaryJumpEvent;
     }

@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class Motion : MonoBehaviour
 {
-    [SerializeField] private InputReader _inputReader;
     [SerializeField] private StateManager _state;
     [SerializeField] private Animator _animator;
 
