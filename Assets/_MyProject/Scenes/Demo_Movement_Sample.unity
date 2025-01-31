@@ -567,34 +567,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 75165701772597207, guid: 9720a05de61f35641836f5c90d49c5a2, type: 3}
-      propertyPath: _inputReaderInitializer
-      value: 
-      objectReference: {fileID: 1395633736}
-    - target: {fileID: 1588330193860310801, guid: 9720a05de61f35641836f5c90d49c5a2, type: 3}
-      propertyPath: _inputReaderInitializer
-      value: 
-      objectReference: {fileID: 1395633736}
     - target: {fileID: 2019630215430768052, guid: 9720a05de61f35641836f5c90d49c5a2, type: 3}
-      propertyPath: _inputReaderInitializer
-      value: 
-      objectReference: {fileID: 1395633736}
-    - target: {fileID: 2350096851836601776, guid: 9720a05de61f35641836f5c90d49c5a2, type: 3}
-      propertyPath: _dashRange
-      value: 3
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2350096851836601776, guid: 9720a05de61f35641836f5c90d49c5a2, type: 3}
-      propertyPath: FlickDetector
-      value: 
-      objectReference: {fileID: 1395633722}
-    - target: {fileID: 2350096851836601776, guid: 9720a05de61f35641836f5c90d49c5a2, type: 3}
-      propertyPath: _flickDetector
-      value: 
-      objectReference: {fileID: 1395633722}
-    - target: {fileID: 2350096851836601776, guid: 9720a05de61f35641836f5c90d49c5a2, type: 3}
-      propertyPath: _inputReaderInitializer
-      value: 
-      objectReference: {fileID: 1395633736}
     - target: {fileID: 3378721389160701992, guid: 9720a05de61f35641836f5c90d49c5a2, type: 3}
       propertyPath: m_Name
       value: Player
@@ -639,21 +615,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5412016833907600464, guid: 9720a05de61f35641836f5c90d49c5a2, type: 3}
-      propertyPath: _inputReaderInitializer
-      value: 
-      objectReference: {fileID: 1395633736}
-    - target: {fileID: 5822720945326688268, guid: 9720a05de61f35641836f5c90d49c5a2, type: 3}
-      propertyPath: m_Constraints
-      value: 120
+    - target: {fileID: 7989969267937131037, guid: 9720a05de61f35641836f5c90d49c5a2, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3378721389160701992, guid: 9720a05de61f35641836f5c90d49c5a2, type: 3}
-      insertIndex: 4
-      addedObject: {fileID: 1395633736}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9720a05de61f35641836f5c90d49c5a2, type: 3}
 --- !u!1 &963194225
 GameObject:
@@ -1347,36 +1316,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
---- !u!1 &1395633719 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3378721389160701992, guid: 9720a05de61f35641836f5c90d49c5a2, type: 3}
-  m_PrefabInstance: {fileID: 960611990}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1395633722 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5412016833907600464, guid: 9720a05de61f35641836f5c90d49c5a2, type: 3}
-  m_PrefabInstance: {fileID: 960611990}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1395633719}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 160ded9d45d0f684b90a205137238dfe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1395633736
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1395633719}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3bdaec30acc18ea44a055166a178bca4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <InputReader>k__BackingField: {fileID: 11400000, guid: 1a68202d15eeda74ebf3caa95dd8dc8d, type: 2}
-  _useKeyboardOnly: 0
 --- !u!1 &1838470208
 GameObject:
   m_ObjectHideFlags: 0

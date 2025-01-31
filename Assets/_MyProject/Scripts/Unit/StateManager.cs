@@ -81,4 +81,11 @@ public class StateManager : InputBase
     {
         CanJump.Value = UtilityFunction.CheckLineData(_groundLineData, transform);
     }
+
+    public void OnFreeControl()
+    {
+        // 操作可能状態に戻る
+        InputState.Value = EInputState.Control;
+        UnitState.Value = EUnitState.Free;
+    }
 }

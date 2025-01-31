@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2369237211336064484}
   - component: {fileID: 5822720945326688268}
   - component: {fileID: 3305928589436461388}
+  - component: {fileID: 2811739693021277066}
   - component: {fileID: 4378807622785483200}
   - component: {fileID: 75165701772597207}
   - component: {fileID: 2350096851836601776}
@@ -22,6 +23,7 @@ GameObject:
   - component: {fileID: 2019630215430768052}
   - component: {fileID: 8874458411080542054}
   - component: {fileID: 5412016833907600464}
+  - component: {fileID: 1445811190994345012}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -118,6 +120,20 @@ CapsuleCollider:
   m_Height: 1.78
   m_Direction: 1
   m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!114 &2811739693021277066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3378721389160701992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bdaec30acc18ea44a055166a178bca4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <InputReader>k__BackingField: {fileID: 11400000, guid: 1a68202d15eeda74ebf3caa95dd8dc8d, type: 2}
+  _useKeyboardOnly: 0
 --- !u!114 &4378807622785483200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,7 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca3f5bc53d15fe748a28e3c1767acbb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputReader: {fileID: 11400000, guid: 1a68202d15eeda74ebf3caa95dd8dc8d, type: 2}
+  _inputReaderInitializer: {fileID: 2811739693021277066}
   _groundLineData: {fileID: 11400000, guid: f6752c62e971d984298d36879c9e2fa5, type: 2}
   InputState:
     value: 0
@@ -168,12 +184,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cd9d83079de100488993ffcd6d71995, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputReader: {fileID: 11400000, guid: 1a68202d15eeda74ebf3caa95dd8dc8d, type: 2}
+  _inputReaderInitializer: {fileID: 2811739693021277066}
+  _flickDetector: {fileID: 5412016833907600464}
   _rigidbody: {fileID: 5822720945326688268}
   _animator: {fileID: 2369237211336064484}
   _state: {fileID: 75165701772597207}
   _gravity: {fileID: 8874458411080542054}
   <WalkPower>k__BackingField: 6
+  _dashRange: 3
   _maxSlopeAngle: 45
   _slopeDistance: 0.2
 --- !u!114 &8140316985890937484
@@ -202,7 +220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 468ad7a430538c24c86f5079b48c73c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputReader: {fileID: 11400000, guid: 1a68202d15eeda74ebf3caa95dd8dc8d, type: 2}
+  _inputReaderInitializer: {fileID: 2811739693021277066}
   _animator: {fileID: 2369237211336064484}
   _state: {fileID: 75165701772597207}
   _rigidbody: {fileID: 5822720945326688268}
@@ -222,7 +240,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcc8b2ce16f9bbc419d3392b1f39038c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputReader: {fileID: 11400000, guid: 1a68202d15eeda74ebf3caa95dd8dc8d, type: 2}
   _state: {fileID: 75165701772597207}
   _animator: {fileID: 2369237211336064484}
 --- !u!114 &3236675830374394807
@@ -253,7 +270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 486af2799066b0b4983e2a28f0a9a0b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputReader: {fileID: 11400000, guid: 1a68202d15eeda74ebf3caa95dd8dc8d, type: 2}
+  _inputReaderInitializer: {fileID: 2811739693021277066}
   _state: {fileID: 75165701772597207}
   _motion: {fileID: 7989969267937131037}
   _attackCollider:
@@ -291,7 +308,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 160ded9d45d0f684b90a205137238dfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputReader: {fileID: 11400000, guid: 1a68202d15eeda74ebf3caa95dd8dc8d, type: 2}
+  _inputReaderInitializer: {fileID: 2811739693021277066}
+  _isLog: 0
+--- !u!114 &1445811190994345012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3378721389160701992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ff0d4a0a8f4af848866c8c244bda893, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inputReaderInitializer: {fileID: 2811739693021277066}
+  _state: {fileID: 75165701772597207}
+  _flickDetector: {fileID: 5412016833907600464}
+  _motion: {fileID: 7989969267937131037}
 --- !u!1 &5716924954719782628
 GameObject:
   m_ObjectHideFlags: 0

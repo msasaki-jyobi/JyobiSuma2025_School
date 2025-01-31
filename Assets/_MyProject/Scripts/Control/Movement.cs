@@ -52,16 +52,7 @@ public class Movement : InputBase
         Rotation();
 
     }
-    /// <summary>
-    /// キー入力の移動値を取得するメソッド
-    /// </summary>
-    /// <param name="input"></param>
-    private void OnMoveHandle(Vector2 input)
-    {
-        _inputX = input.x;
-        _inputY = input.y;
 
-    }
     private async void OnFlickHandle(Vector2 vector)
     {
         Debug.Log($"はじき；{vector}");
@@ -78,8 +69,9 @@ public class Movement : InputBase
     {
         // 現在の入力値を取得
         Vector2 input = _moveAction.ReadValue<Vector2>();
+        _inputX = input.x;
+        _inputY = input.y;
 
-        OnMoveHandle(input);
         bool check = true;
         check = check && _state.InputState.Value == EInputState.Control;
         check = check && _state.UnitState.Value == EUnitState.Free;

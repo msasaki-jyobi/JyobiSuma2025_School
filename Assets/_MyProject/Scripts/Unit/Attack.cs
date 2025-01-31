@@ -105,7 +105,7 @@ public class Attack : InputBase
     /// AnimationEvent用：指定スロットの攻撃判定ON
     /// </summary>
     /// <param name="slotNum"></param>
-    private void OnAtkStart(int slotNum)
+    private void Hit(int slotNum)
     {
         if (slotNum < _attackCollider.Count)
             _attackCollider[slotNum].SetActive(true);
@@ -114,7 +114,7 @@ public class Attack : InputBase
     /// <summary>
     /// AnimationEvent用：指定スロットの攻撃判定OFF
     /// </summary>
-    private void OnAtkEnd(int slotNum)
+    private void HitEnd(int slotNum)
     {
         if (slotNum < _attackCollider.Count)
             _attackCollider[slotNum].SetActive(false);
@@ -122,10 +122,9 @@ public class Attack : InputBase
     /// <summary>
     /// AnimationEvent用：アニメーションの終了
     /// </summary>
-    private void OnFinish()
+    private void AtkEnd()
     {
-        // 操作可能状態に戻る
         _motion.SetState(800);
-        _state.UnitState.Value = EUnitState.Free;
+        _state.OnFreeControl();
     }
 }
