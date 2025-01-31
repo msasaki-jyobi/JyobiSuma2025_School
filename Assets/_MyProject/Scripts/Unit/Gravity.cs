@@ -57,9 +57,9 @@ public class Gravity : MonoBehaviour
     {
         _externalForce += force * _forceMultiplier;
         _externalForce.y = 0;
-        var upForce =
-            transform.up * force.y * upMultiplier * (_health.UnitHealht.Value / _forceResistance);
 
+        var upForce =
+            transform.up * (upMultiplier + (_health.UnitHealht.Value / _forceResistance));
         _rigidbody.AddForce(upForce, ForceMode.Impulse);
     }
 

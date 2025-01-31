@@ -28,10 +28,12 @@ public enum EUnitState
 public class StateManager : InputBase
 {
     [SerializeField] private LineData _groundLineData;
+    [SerializeField] private Gravity _gravity;
 
     public ReactiveProperty<EInputState> InputState = new ReactiveProperty<EInputState>(); // キー入力可能な状態
     public ReactiveProperty<EUnitState> UnitState = new ReactiveProperty<EUnitState>(); // ユニットの状態
     public ReactiveProperty<bool> CanJump = new ReactiveProperty<bool>();
+    
 
     protected override void Start()
     {
@@ -87,5 +89,6 @@ public class StateManager : InputBase
         // 操作可能状態に戻る
         InputState.Value = EInputState.Control;
         UnitState.Value = EUnitState.Free;
+        _gravity.IsUnGravity = false;
     }
 }

@@ -12,14 +12,17 @@ public class Attack : InputBase
     [SerializeField] private FlickDetector _flickDetector;
     [SerializeField] private GameObject _smashEffect;
 
-    [SerializeField] private List<GameObject> _attackCollider;
+    [SerializeField] private List<AttackSettings> _attackSettings;
 
     private ReactiveProperty<bool> _isSmash = new ReactiveProperty<bool>();
     private Vector2 _direction;
-    private int _smashState = 1;
+    private int _activeState;
 
     private float _inputX;
     private float _inputY;
+
+
+
 
     protected override void Start()
     {
@@ -60,7 +63,7 @@ public class Attack : InputBase
         {
             if (_isSmash.Value) // スマッシュアクション中にキーを離したら
             {
-                _motion.SetState(_smashState); // スマッシュモーション
+                _motion.SetState(_activeState); // スマッシュモーション
                 _isSmash.Value = false;
                 _smashEffect.SetActive(false);
             }
@@ -74,6 +77,7 @@ public class Attack : InputBase
     private void PlayAction(string keyType)
     {
         var state = GetAttackState(keyType);
+        _activeState = state; // 技を確定させる
 
         if (_state.CanJump.Value)
         {
@@ -87,7 +91,7 @@ public class Attack : InputBase
             {
                 _isSmash.Value = true; // スマッシュアクションフラグON
                 _motion.SetState(500); // スマッシュアクション実施
-                _smashState = state; // スマッシュ技を確定させる
+                
                 _state.InputState.Value = EInputState.UnControl;
                 if (_smashEffect != null)
                     _smashEffect.SetActive(true);
@@ -111,8 +115,8 @@ public class Attack : InputBase
         var state = 0;
 
         // A or B
-        if(moveDirection == "Idle")
-           state = keyType == "A" ? 0 : 5;
+        if (moveDirection == "Idle")
+            state = keyType == "A" ? 0 : 5;
         else if (moveDirection == "Down")
             state = keyType == "A" ? 1 : 6;
         else if (moveDirection == "Left")
@@ -125,12 +129,12 @@ public class Attack : InputBase
         // 空中なら+10
         if (!_state.CanJump.Value)
             state += 10;
-        else if(_flickDetector.IsFlicking)
+        else if (_flickDetector.IsFlicking)
         {
-            // 地面かつスマッシュなら+15
-            state += 25;
+            // 地面かつスマッシュなら+19
+            state += 19;
             if (moveDirection == "Idle")
-                state -= 25;
+                state -= 19;
         }
 
         return state;
@@ -163,18 +167,15 @@ public class Attack : InputBase
     /// <param name="slotNum"></param>
     private void Hit(int slotNum)
     {
-
-        if (slotNum < _attackCollider.Count)
-            _attackCollider[slotNum].SetActive(true);
-
+        _attackSettings[_activeState].HitCollider.gameObject.SetActive(true);
+        _attackSettings[_activeState].HitCollider.OnSetParameter(_attackSettings[_activeState]);
     }
     /// <summary>
     /// AnimationEvent用：指定スロットの攻撃判定OFF
     /// </summary>
     private void HitEnd(int slotNum)
     {
-        if (slotNum < _attackCollider.Count)
-            _attackCollider[slotNum].SetActive(false);
+        _attackSettings[_activeState].HitCollider.gameObject.SetActive(false);
     }
     /// <summary>
     /// AnimationEvent用：アニメーションの終了
@@ -185,5 +186,6 @@ public class Attack : InputBase
         _gravity.IsUnGravity = false;
         _state.OnFreeControl();
         _motion.SetApplyRootMotion(false);
+        _activeState = 0;
     }
 }

@@ -15,17 +15,25 @@ public class Health : MonoBehaviour
         OnLook(hitPoint);
 
         _state.UnitState.Value = EUnitState.Damage;
-        _motion.SetState(23, EUnitState.Damage);
+        _motion.SetState(33, EUnitState.Damage);
     }
 
     /// <summary>
     /// AnimationEvent用
     /// </summary>
-    public void OnDamageEnd()
+    private void GetUp()
     {
         // 状態に応じて、ダウンやFreeに切り替え
-        _motion.SetState(800, EUnitState.Free);
-
+        _motion.SetState(35);
+    }
+    /// <summary>
+    /// AnimationEvent用
+    /// </summary>
+    private void DmgEnd()
+    {
+        // 状態に応じて、ダウンやFreeに切り替え
+        _state.OnFreeControl();
+        _motion.SetState(800);
     }
 
     private void OnLook(Vector3 hitPoint)
