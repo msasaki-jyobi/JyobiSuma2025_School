@@ -18,7 +18,7 @@ public class DeadCollider : MonoBehaviour
     {
         if(hit.gameObject.TryGetComponent(out Health health))
         {
-            AudioManager.Instance.PlayOneShot(HitSE, develop_common.EAudioType.Se);
+            AudioManager.Instance.PlayOneShot(HitSE, EAudioType.Se);
             UtilityFunction.PlayEffect(hit, HitEffect);
 
             health.Dead();

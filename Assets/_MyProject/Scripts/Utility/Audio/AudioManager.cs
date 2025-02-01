@@ -1,4 +1,3 @@
-using develop_common;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +7,6 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
     [SerializeField] private AudioSource _seAudio;
     [SerializeField] private AudioSource _bgmAudio;
     [SerializeField] private AudioSource _voiceAudio;
-    [SerializeField] private List<AudioClip> _debugSEs = new List<AudioClip>();
 
     private void Start()
     {
@@ -62,11 +60,20 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
         _seAudio.pitch = value;
     }
 
-    public void PlayBGM(AudioClip clip)
+    public void ChangeBGM(AudioClip clip)
     {
         if (clip == null) return;
         _bgmAudio.Stop();
         _bgmAudio.clip = clip;
         _bgmAudio.Play();
+    }
+
+    public void PlayBGM()
+    {
+        _bgmAudio.Play();
+    }
+    public void StopBGM()
+    {
+        _bgmAudio.Stop();
     }
 }

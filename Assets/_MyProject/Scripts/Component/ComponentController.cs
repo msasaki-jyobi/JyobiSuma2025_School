@@ -8,8 +8,4 @@ public class ComponentController : MonoBehaviour
     [field:SerializeField] public Jump Jump;
     [field:SerializeField] public Health Health;
     [field:SerializeField] public Attack Skill;
-
-    [Header("Character")]
-    [field:SerializeField] public Voice Voice;
-
 }

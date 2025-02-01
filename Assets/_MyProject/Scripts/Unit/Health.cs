@@ -6,16 +6,18 @@ public class Health : MonoBehaviour
 {
     [SerializeField] private StateManager _state;
     [SerializeField] private Motion _motion;
+    [SerializeField] private UnitVoice _unitVoice;
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private CapsuleCollider _capsuleCollider;
     [SerializeField] private GameObject _character;
 
-
     public ReactiveProperty<float> UnitHealht = new ReactiveProperty<float>();
+    public ReactiveProperty<int> UnitLife = new ReactiveProperty<int>();
 
     public void TakeDamage(float amount, Vector3 hitPoint)
     {
         UnitHealht.Value += amount;
+        _unitVoice.PlayVoice(EVoiceKind.Damage_A);
 
         OnLook(hitPoint);
 
@@ -60,11 +62,25 @@ public class Health : MonoBehaviour
         transform.position = Vector3.zero;
         _rigidbody.isKinematic = true;
         _capsuleCollider.enabled = false;
-
-        await UniTask.Delay(3000);
         UnitHealht.Value = 0;
-        _rigidbody.isKinematic = false;
-        _capsuleCollider.enabled = true;
-        _character.SetActive(true);
+        UnitLife.Value--;
+        _unitVoice.PlayVoice(EVoiceKind.Dead_A, true);
+
+        if (gameObject.TryGetComponent(out UnitInfo unitInfo))
+        {
+            var isDead = unitInfo.DeadLife();
+
+            if(isDead)
+            {
+                GameManager.Instance.CheckDead();
+            }
+            else
+            {
+                await UniTask.Delay(3000);
+                _rigidbody.isKinematic = false;
+                _capsuleCollider.enabled = true;
+                _character.SetActive(true);
+            }
+        }
     }
 }

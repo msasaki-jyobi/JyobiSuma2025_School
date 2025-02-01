@@ -25,7 +25,7 @@ public class HitCollider : MonoBehaviour
     private async void OnEnable()
     {
         // 効果音を鳴らす
-        AudioManager.Instance.PlayOneShot(_enableSE, develop_common.EAudioType.Se);
+        AudioManager.Instance.PlayOneShot(_enableSE, EAudioType.Se);
         UtilityFunction.PlayEffect(gameObject, _enableEffect);
 
         await UniTask.Delay(10);
@@ -68,7 +68,7 @@ public class HitCollider : MonoBehaviour
             UtilityFunction.PlayEffect(hit, _hitEffect);
 
             // 効果音を鳴らす
-            AudioManager.Instance.PlayOneShot(_hitSE, develop_common.EAudioType.Se);
+            AudioManager.Instance.PlayOneShot(_hitSE, EAudioType.Se);
 
             // 移動可能オブジェクトなら吹き飛ばす
             if (hit.TryGetComponent(out Gravity gravity))

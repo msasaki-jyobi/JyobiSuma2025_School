@@ -57,8 +57,8 @@ public class InputReader : MonoBehaviour, IPlayerActions
         {
             devices.Add(Gamepad.current);
         }
-
         Control.devices = new ReadOnlyArray<InputDevice>(devices.ToArray());
+
     }
 
     public void OnAttack(InputAction.CallbackContext context)

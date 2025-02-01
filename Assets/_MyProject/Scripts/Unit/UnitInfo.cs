@@ -27,4 +27,9 @@ public class UnitInfo : MonoBehaviour
     {
         _characterUI = characterUI;
     }
+
+    public bool DeadLife()
+    {
+        return _characterUI.Lifes.OnDeleteLife();
+    }
 }

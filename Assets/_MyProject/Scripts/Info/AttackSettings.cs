@@ -30,6 +30,9 @@ public class AttackSettings : MonoBehaviour
     [Header("技ヒット時：効果音")]
     public AudioClip HitSE;
 
+    [Header("発動ボイス")]
+    public EVoiceKind PlayVoice;
+
     [Header("生成魔法")]
     public bool UnCollider;
     public GameObject EnableMagicPrefab;

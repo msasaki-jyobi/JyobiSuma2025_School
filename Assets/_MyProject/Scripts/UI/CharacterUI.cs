@@ -11,14 +11,17 @@ public class CharacterUI : MonoBehaviour
     [SerializeField] private Image _backImageB;
     [SerializeField] private TextMeshProUGUI _healthTextUGUI;
     [SerializeField] private TextMeshProUGUI _nameTextGUI;
+    [field: SerializeField] public Lifes Lifes {  get; private set; }
 
-    public void SetUnitInfo(UnitInfo unitInfo)
+    public void SetUnitInfo(UnitInfo unitInfo, int lifeNum)
     {
         _characterFaceImage.sprite = unitInfo.FaceSprite;
         _characterIconImage.sprite = unitInfo.IconSprite;
         _backImageA.color = unitInfo.UnitColor;
         _backImageB.color = unitInfo.UnitColor;
         _nameTextGUI.text = unitInfo.UnitName;
+
+        Lifes.OnCreateLife(lifeNum, unitInfo.FaceSprite);
     }
 
     public void UpdateHealthGUI(float value)
@@ -33,9 +36,9 @@ public class CharacterUI : MonoBehaviour
         if(value >= 80)
             _healthTextUGUI.color = Color.red;
         else if(value >= 50)
-            _healthTextUGUI.color = Color.cyan;
-        else if(value >= 30)
             _healthTextUGUI.color = Color.yellow;
+        else if(value >= 30)
+            _healthTextUGUI.color = Color.green;
         else
             _healthTextUGUI.color = Color.white;
 

@@ -10,8 +10,8 @@ public class Attack : InputBase
     [SerializeField] private Motion _motion;
     [SerializeField] private Gravity _gravity;
     [SerializeField] private FlickDetector _flickDetector;
+    [SerializeField] private UnitVoice _unitVoice;
     [SerializeField] private GameObject _smashEffect;
-
     [SerializeField] private List<AttackSettings> _attackSettings;
 
     private ReactiveProperty<bool> _isSmash = new ReactiveProperty<bool>();
@@ -64,6 +64,7 @@ public class Attack : InputBase
         {
             if (_isSmash.Value) // スマッシュアクション中にキーを離したら
             {
+                _unitVoice.PlayVoice(_attackSettings[_activeState].PlayVoice);
                 _motion.SetState(_activeState); // スマッシュモーション
                 _isSmash.Value = false;
                 _smashEffect.SetActive(false);
@@ -95,7 +96,7 @@ public class Attack : InputBase
         _activeState = state; // 技を確定させる
 
         // 演出
-        AudioManager.Instance.PlayOneShot(_attackSettings[state].PlaySE, develop_common.EAudioType.Se);
+        AudioManager.Instance.PlayOneShot(_attackSettings[state].PlaySE, EAudioType.Se);
         UtilityFunction.PlayEffect(gameObject,_attackSettings[state].PlayEffect);
 
         var ground = _state.CanJump.Value;
@@ -119,6 +120,7 @@ public class Attack : InputBase
             }
             else // 通常攻撃アクション
             {
+                _unitVoice.PlayVoice(_attackSettings[state].PlayVoice);
                 _motion.SetState(state, EUnitState.Action);
                 if (ground)
                     _state.InputState.Value = EInputState.UnControl;
