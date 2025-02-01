@@ -16,6 +16,7 @@ public enum EVoiceKind
 
 public class UnitVoice : MonoBehaviour
 {
+    [Header("ボイス重複防止 / 各再生ボイス")]
     public float VoiceSpan = 0.2f;
     public List<VoiceInfo> VoiceInfos = new List<VoiceInfo>();
 

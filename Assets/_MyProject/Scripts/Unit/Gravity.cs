@@ -5,13 +5,13 @@ public class Gravity : MonoBehaviour
 {
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private Health _health;
+    public bool IsUnGravity;
 
+    [Header("重さ / 吹き飛び減衰速度 / 吹き飛びやすさ / 吹き飛び抵抗力")]
     [SerializeField] private float _weight = 600f;
     [SerializeField] private float _dampingSpeed = 5f; // 外力の減衰スピード
     [SerializeField] private float _forceMultiplier = 2f; // 外力の強さ(高いほど吹き飛ぶ）
     [SerializeField] private float _forceResistance = 12f; // 吹き飛びの抵抗力
-
-    public bool IsUnGravity;
 
     private float _defaultForceMultiplier;
     private Vector3 _externalForce; // 外力を保持する変数

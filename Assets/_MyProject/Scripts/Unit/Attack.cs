@@ -11,8 +11,9 @@ public class Attack : InputBase
     [SerializeField] private Gravity _gravity;
     [SerializeField] private FlickDetector _flickDetector;
     [SerializeField] private UnitVoice _unitVoice;
-    [SerializeField] private GameObject _smashEffect;
     [SerializeField] private List<AttackSettings> _attackSettings;
+    [Header("スマッシュ溜めエフェクト")]
+    [SerializeField] private GameObject _smashEffect;
 
     private ReactiveProperty<bool> _isSmash = new ReactiveProperty<bool>();
     private Vector2 _direction;

@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class HitCollider : MonoBehaviour
 {
+    [Header("下記は自動入力される為 設定不要")]
     [SerializeField] private GameObject _attaker;
-    [SerializeField] private AudioSource _audioSource;
 
     [SerializeField] private float _damageAmount;
     [SerializeField] private float _forcePower = 10f; // 吹き飛ばす力の強さ

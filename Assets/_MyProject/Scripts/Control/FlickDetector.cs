@@ -8,8 +8,6 @@ using System.Collections.Generic;
 /// </summary>
 public class FlickDetector : InputBase
 {
-    [SerializeField] private bool _isLog;
-
     private float _flickThreshold = 0.8f; // スティックのはじき判定しきい値
     private float _flickTimeLimit = 0.1f; // はじき受付時間（共通）
 
@@ -29,11 +27,11 @@ public class FlickDetector : InputBase
 
     private void Update()
     {
-        if(_isLog)
-        {
-            Debug.Log($"Name:{gameObject.name}, Gamepad.current: {(Gamepad.current != null ? "接続中" : "未接続")}");
-            Debug.Log($"Name:{gameObject.name}, Keyboard.current: {(Keyboard.current != null ? "接続中" : "未接続")}");
-        }
+        //if(_isLog)
+        //{
+        //    Debug.Log($"Name:{gameObject.name}, Gamepad.current: {(Gamepad.current != null ? "接続中" : "未接続")}");
+        //    Debug.Log($"Name:{gameObject.name}, Keyboard.current: {(Keyboard.current != null ? "接続中" : "未接続")}");
+        //}
 
         if (IsFlicking && Time.time - _flickStartTime > _flickTimeLimit)
         {

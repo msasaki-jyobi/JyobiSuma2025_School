@@ -2051,6 +2051,10 @@ PrefabInstance:
       propertyPath: ForceUpMultiplier
       value: -12.2
       objectReference: {fileID: 0}
+    - target: {fileID: 2369237211336064484, guid: 9720a05de61f35641836f5c90d49c5a2, type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: 0e1e29b35a3700748811d120b13ed8d6, type: 3}
     - target: {fileID: 2523170495253042812, guid: 9720a05de61f35641836f5c90d49c5a2, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -2161,6 +2165,10 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 49a70a6ddd11547458ceee0836c73c94, type: 3}
     - target: {fileID: 4041254720074111402, guid: 9720a05de61f35641836f5c90d49c5a2, type: 3}
       propertyPath: PlayVoice
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4047809430361816251, guid: 9720a05de61f35641836f5c90d49c5a2, type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4140690663103648648, guid: 9720a05de61f35641836f5c90d49c5a2, type: 3}
@@ -2365,7 +2373,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5716924954719782628, guid: 9720a05de61f35641836f5c90d49c5a2, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5722998283314458712, guid: 9720a05de61f35641836f5c90d49c5a2, type: 3}
       propertyPath: _audioSource
@@ -2569,6 +2577,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4302267296070186593, guid: 9720a05de61f35641836f5c90d49c5a2, type: 3}
+    - {fileID: 8140316985890937484, guid: 9720a05de61f35641836f5c90d49c5a2, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -3436,7 +3445,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attaker: {fileID: 0}
-  _audioSource: {fileID: 1210400412}
   _damageAmount: 6
   _forcePower: 12
   _forceUpMultiplier: -30

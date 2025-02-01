@@ -6,35 +6,29 @@ public class AttackSettings : MonoBehaviour
 {
     // _activeState:1 地面技　火力、吹き飛び、ヒットエフェクト、生成エフェクト、再生コライダーSlot
     // 
-    [Header("Animator State Num")]
+    [Header("Animator State Num（変更不要）")]
     public int StateNum;
-    [Header("ターゲットとなるコライダー")]
+
+    [Header("ターゲットコライダー")]
     public HitCollider HitCollider;
-
-    [Header("ダメージ"), Range(0, 100)]
+    [Header("ターゲットコライダーの判定をOFFにする")]
+    public bool UnCollider;
+    [Header("ヒットダメージ"), Range(0, 100)]
     public float DamageAmount = 1;
-    [Header("吹き飛び値(X)"), Range(-50, 50)]
+    [Header("吹き飛び値(X) / 吹き飛び値(Y)"), Range(-50, 50)]
     public float ForcePower;
-    [Header("吹き飛び値(Y)"), Range(-50, 50)]
     public float ForceUpMultiplier;
-    [Header("発動時：エフェクト")]
+    [Header("エフェクト： 発動時 / コライダー発生時 / ヒット時")]
     public GameObject PlayEffect;
-    [Header("コライダー発生時：エフェクト")]
     public GameObject EnableEffect;
-    [Header("技ヒット時：エフェクト")]
     public GameObject HitEffect;
-    [Header("発動時時：効果音")]
+    [Header("効果音： 発動時 / コライダー発生時 / ヒット時")]
     public AudioClip PlaySE;
-    [Header("コライダー発生時：効果音")]
     public AudioClip EnableSE;
-    [Header("技ヒット時：効果音")]
     public AudioClip HitSE;
-
     [Header("発動ボイス")]
     public EVoiceKind PlayVoice;
-
-    [Header("生成魔法")]
-    public bool UnCollider;
+    [Header("生成魔法 / 破棄までの時間")]
     public GameObject EnableMagicPrefab;
     public float LifeTime = 5f;
 }

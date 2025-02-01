@@ -11,11 +11,9 @@ public class Movement : InputBase
     [SerializeField] private Animator _animator;
     [SerializeField] private StateManager _state;
     [SerializeField] private Gravity _gravity;
-
-    [field: SerializeField] public float WalkPower { get; private set; } = 6f;
-    [SerializeField] private float _dashRange = 3f;
     [SerializeField] private float _maxSlopeAngle = 45f;
     [SerializeField] private float _slopeDistance = 0.2f;
+    [field: SerializeField, Header("移動速度")] public float WalkPower { get; private set; } = 6f;
 
     private Camera _camera;
     private float _inputX;

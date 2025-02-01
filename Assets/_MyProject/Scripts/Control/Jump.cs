@@ -10,10 +10,11 @@ public class Jump : InputBase
     [SerializeField] private Animator _animator;
     [SerializeField] private StateManager _state;
     [SerializeField] private Rigidbody _rigidbody;
+    public ReactiveProperty<bool> IsJump = new ReactiveProperty<bool>();
+    [Header("ジャンプ回数の上限 / ジャンプ力")]
     [SerializeField] private int _jumpLimit = 2;
     [SerializeField] private float _jumpPower = 10f;
 
-    public ReactiveProperty<bool> IsJump = new ReactiveProperty<bool>();
 
     private int _jumpCount;
 
