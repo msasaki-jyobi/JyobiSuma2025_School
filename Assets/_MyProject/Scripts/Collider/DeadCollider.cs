@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class DeadCollider : MonoBehaviour
 {
-    public AudioSource AudioSource;
     public AudioClip HitSE;
     public GameObject HitEffect;
 
@@ -19,7 +18,7 @@ public class DeadCollider : MonoBehaviour
     {
         if(hit.gameObject.TryGetComponent(out Health health))
         {
-            AudioSource.PlayOneShot(HitSE);
+            AudioManager.Instance.PlayOneShot(HitSE, develop_common.EAudioType.Se);
             UtilityFunction.PlayEffect(hit, HitEffect);
 
             health.Dead();

@@ -29,6 +29,7 @@ public class Attack : InputBase
         base.Start();
         _inputReader.MoveEvent += OnMoveHandle;
         _inputReader.PrimaryAttackEvent += OnPrimaryAttackHandle;
+        _inputReader.PrimarySubAttackEvent += OnPrimarySubAttackHandle;
 
         _flickDetector.OnFlickDetected += OnFlickHandle;
 
@@ -69,6 +70,20 @@ public class Attack : InputBase
             }
         }
     }
+
+    private void OnPrimarySubAttackHandle(bool input)
+    {
+        if (input)
+        {
+            if (_state.InputState.Value == EInputState.UnControl) return; // 操作不能ならReturn
+            if (_state.UnitState.Value != EUnitState.Free) return; // 自由操作可能じゃなければReturn
+
+            PlayAction("B");
+        }
+    }
+
+
+
     private void OnFlickHandle(Vector2 vector)
     {
         _direction = vector;
@@ -78,6 +93,10 @@ public class Attack : InputBase
     {
         var state = GetAttackState(keyType);
         _activeState = state; // 技を確定させる
+
+        // 演出
+        AudioManager.Instance.PlayOneShot(_attackSettings[state].PlaySE, develop_common.EAudioType.Se);
+        UtilityFunction.PlayEffect(gameObject,_attackSettings[state].PlayEffect);
 
         var ground = _state.CanJump.Value;
 
@@ -89,7 +108,7 @@ public class Attack : InputBase
 
         if (!_isSmash.Value) // スマッシュアクションじゃない
         {
-            if (_flickDetector.IsFlicking && ground) // はじき入力中
+            if (_flickDetector.IsFlicking && ground && keyType == "A") // はじき入力中
             {
                 _isSmash.Value = true; // スマッシュアクションフラグON
                 _motion.SetState(500); // スマッシュアクション実施

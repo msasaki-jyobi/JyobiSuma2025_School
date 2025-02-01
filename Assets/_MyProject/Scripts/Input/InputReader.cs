@@ -13,6 +13,7 @@ public class InputReader : MonoBehaviour, IPlayerActions
     public event Action<Vector2> MoveEvent;
     public event Action CanceledMoveEvent;
     public event Action<bool> PrimaryAimEvent;
+    public event Action<bool> PrimarySubAttackEvent;
 
     public InputSystem_Actions Control { get; private set; }
 
@@ -107,6 +108,11 @@ public class InputReader : MonoBehaviour, IPlayerActions
 
     public void OnSprint(InputAction.CallbackContext context)
     {
+    }
+
+    public void OnSubAttack(InputAction.CallbackContext context)
+    {
+        PrimarySubAttackEvent?.Invoke(context.performed);
     }
 }
 

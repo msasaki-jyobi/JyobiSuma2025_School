@@ -17,12 +17,21 @@ public class AttackSettings : MonoBehaviour
     public float ForcePower;
     [Header("吹き飛び値(Y)"), Range(-50, 50)]
     public float ForceUpMultiplier;
-    [Header("技発生時：エフェクト")]
+    [Header("発動時：エフェクト")]
+    public GameObject PlayEffect;
+    [Header("コライダー発生時：エフェクト")]
     public GameObject EnableEffect;
     [Header("技ヒット時：エフェクト")]
     public GameObject HitEffect;
-    [Header("技発生時：効果音")]
+    [Header("発動時時：効果音")]
+    public AudioClip PlaySE;
+    [Header("コライダー発生時：効果音")]
     public AudioClip EnableSE;
     [Header("技ヒット時：効果音")]
     public AudioClip HitSE;
+
+    [Header("生成魔法")]
+    public bool UnCollider;
+    public GameObject EnableMagicPrefab;
+    public float LifeTime = 5f;
 }

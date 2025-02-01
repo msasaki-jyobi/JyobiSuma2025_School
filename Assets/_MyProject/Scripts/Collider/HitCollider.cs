@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class HitCollider : MonoBehaviour
@@ -8,19 +9,38 @@ public class HitCollider : MonoBehaviour
     [SerializeField] private float _damageAmount;
     [SerializeField] private float _forcePower = 10f; // 吹き飛ばす力の強さ
     [SerializeField] private float _forceUpMultiplier = 2.5f; // 上へ吹き飛ばす力の強さ
+
     [SerializeField] private GameObject _enableEffect;
     [SerializeField] private GameObject _hitEffect;
     [SerializeField] private AudioClip _enableSE;
     [SerializeField] private AudioClip _hitSE;
 
+    [Space(10)]
+    // 生成する魔法とか
+    [SerializeField] private bool _unCollider;
+    [SerializeField] private GameObject _enableCreateMagic;
+    [SerializeField] private float _lifeTime = 5f;
 
 
-
-    private void OnEnable()
+    private async void OnEnable()
     {
-        UtilityFunction.PlayEffect(gameObject, _enableEffect);
         // 効果音を鳴らす
-        _audioSource.PlayOneShot(_enableSE);
+        AudioManager.Instance.PlayOneShot(_enableSE, develop_common.EAudioType.Se);
+        UtilityFunction.PlayEffect(gameObject, _enableEffect);
+
+        await UniTask.Delay(10);
+
+        // 魔法生成
+        var magic = UtilityFunction.PlayEffect(gameObject, _enableCreateMagic, destroyTime: _lifeTime);
+        if (magic != null)
+            if (magic.TryGetComponent(out HitCollider hitCollider))
+            {
+                if (_attaker != null)
+                {
+                    magic.transform.rotation = _attaker.transform.rotation;
+                    hitCollider._attaker = _attaker;
+                }
+            }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -48,7 +68,7 @@ public class HitCollider : MonoBehaviour
             UtilityFunction.PlayEffect(hit, _hitEffect);
 
             // 効果音を鳴らす
-            _audioSource.PlayOneShot(_hitSE);
+            AudioManager.Instance.PlayOneShot(_hitSE, develop_common.EAudioType.Se);
 
             // 移動可能オブジェクトなら吹き飛ばす
             if (hit.TryGetComponent(out Gravity gravity))
@@ -73,5 +93,12 @@ public class HitCollider : MonoBehaviour
         _hitEffect = attackSettings.HitEffect;
         _enableSE = attackSettings.EnableSE;
         _hitSE = attackSettings.HitSE;
+
+        _unCollider = attackSettings.UnCollider;
+        _enableCreateMagic = attackSettings.EnableMagicPrefab;
+        _lifeTime = attackSettings.LifeTime;
+
+        if (TryGetComponent(out Collider collider))
+            collider.enabled = !_unCollider;
     }
 }
