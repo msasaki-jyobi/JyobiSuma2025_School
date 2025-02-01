@@ -1,7 +1,6 @@
 using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,6 +13,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     public int LifeNum = 3;
     public AudioClip StageBGM;
     public AudioClip FinishVoice;
+
+    private bool _isGameEnd;
 
 
     private void Start()
@@ -45,8 +46,10 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         }
     }
 
-    public async void CheckDead()
+    public async void GameEnd()
     {
+        if (_isGameEnd) return;
+        _isGameEnd = true;
         var winPlayers = "";
         foreach (UnitInfo info in UnitInfos)
         {
@@ -62,6 +65,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         await UniTask.Delay(1000);
         _centerTextUGUI.text = $"{winPlayers} Win !!";
         await UniTask.Delay(3000);
+        _isGameEnd = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

@@ -28,7 +28,7 @@ public class AttackSettings : MonoBehaviour
     public AudioClip HitSE;
     [Header("発動ボイス")]
     public EVoiceKind PlayVoice;
-    [Header("生成魔法 / 破棄までの時間")]
+    [Header("発生時：生成魔法 / 破棄までの時間")]
     public GameObject EnableMagicPrefab;
     public float LifeTime = 5f;
 }

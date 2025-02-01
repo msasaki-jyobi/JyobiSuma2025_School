@@ -72,7 +72,7 @@ public class Health : MonoBehaviour
 
             if(isDead)
             {
-                GameManager.Instance.CheckDead();
+                GameManager.Instance.GameEnd();
             }
             else
             {

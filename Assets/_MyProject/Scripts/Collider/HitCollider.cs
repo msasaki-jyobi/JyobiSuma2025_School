@@ -3,21 +3,29 @@ using UnityEngine;
 
 public class HitCollider : MonoBehaviour
 {
-    [Header("下記は自動入力される為 設定不要")]
+    [Header("魔法以外の場合 設定不要")]
+    [Space(20)]
+    [Header("発動者")]
     [SerializeField] private GameObject _attaker;
-
+    [Space(10)]
+    [Header("ヒットダメージ"), Range(0, 100)]
     [SerializeField] private float _damageAmount;
+    [Header("吹き飛び値(X) / 吹き飛び値(Y)"), Range(-50, 50)]
     [SerializeField] private float _forcePower = 10f; // 吹き飛ばす力の強さ
     [SerializeField] private float _forceUpMultiplier = 2.5f; // 上へ吹き飛ばす力の強さ
 
+    [Header("エフェクト： 発生時 / ヒット時")]
     [SerializeField] private GameObject _enableEffect;
     [SerializeField] private GameObject _hitEffect;
+    [Header("効果音： 発生時 / ヒット時")]
     [SerializeField] private AudioClip _enableSE;
     [SerializeField] private AudioClip _hitSE;
 
     [Space(10)]
-    // 生成する魔法とか
+    [Header("下記 手動設定不要（設定してもOK）")]
+    [Header("コライダーの判定をOFFにする")]
     [SerializeField] private bool _unCollider;
+    [Header("発生時：生成魔法 / 破棄までの時間")]
     [SerializeField] private GameObject _enableCreateMagic;
     [SerializeField] private float _lifeTime = 5f;
 
