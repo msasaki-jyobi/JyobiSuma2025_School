@@ -9,13 +9,13 @@ public class UtilityFunction : MonoBehaviour
     /// <param name="effectPrefab">エフェクトプレハブ</param>
     /// <param name="loop">パーティクルシステムのループ</param>
     /// <param name="parentObject">設定したい親オブジェクト</param>
-    public static void PlayEffect(GameObject root, GameObject effectPrefab, 
+    public static GameObject PlayEffect(GameObject root, GameObject effectPrefab, 
         bool loop = false, GameObject parentObject = null, float destroyTime = 5f)
     {
         if (effectPrefab == null)
         {
             //Debug.LogWarning($"{root.gameObject.transform.name}:effectはありません");
-            return;
+            return null;
         }
         // エフェクトを生成する
         GameObject effect = Instantiate(effectPrefab, root.transform.position, Quaternion.identity);
@@ -31,6 +31,8 @@ public class UtilityFunction : MonoBehaviour
             effect.transform.rotation = parentObject.transform.rotation;
         }
         Destroy(effect, destroyTime);
+
+        return effect;
     }
 
     /// <summary>
