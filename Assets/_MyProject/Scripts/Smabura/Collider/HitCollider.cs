@@ -10,6 +10,8 @@ public class HitCollider : MonoBehaviour
     [Space(10)]
     [Header("ヒットダメージ"), Range(0, 100)]
     [SerializeField] private float _damageAmount;
+    [Header("ダメージステート")]
+    [SerializeField] private int _damageState = 1000;
     [Header("吹き飛び値(X) / 吹き飛び値(Y)"), Range(-50, 50)]
     [SerializeField] private float _forcePower = 10f; // 吹き飛ばす力の強さ
     [SerializeField] private float _forceUpMultiplier = 2.5f; // 上へ吹き飛ばす力の強さ
@@ -70,7 +72,7 @@ public class HitCollider : MonoBehaviour
         if(hit.TryGetComponent(out Health health))
         {
             // ダメージ処理
-            health.TakeDamage(_damageAmount, contactPoint);
+            health.TakeDamage(_damageAmount, contactPoint, _damageState);
 
             // HitEffect
             UtilityFunction.PlayEffect(hit, _hitEffect);

@@ -1,10 +1,12 @@
 using UniRx;
 using UnityEngine;
 
+
 public enum EUnitType
 {
     Playable, // キャラクター
     Object, // オブジェクト
+    Enemy,
 }
 
 public enum EInputState
@@ -27,9 +29,16 @@ public enum EUnitState
 
 public class StateManager : InputBase
 {
+    public static int IdleState { get; private set; } = 800;
+    public static int SmashState { get; private set; } = 500;
+
+
+
+
     [SerializeField] private LineData _groundLineData;
     [SerializeField] private Gravity _gravity;
 
+    public ReactiveProperty<EUnitType> UnitType = new ReactiveProperty<EUnitType>(); // キー入力可能な状態
     public ReactiveProperty<EInputState> InputState = new ReactiveProperty<EInputState>(); // キー入力可能な状態
     public ReactiveProperty<EUnitState> UnitState = new ReactiveProperty<EUnitState>(); // ユニットの状態
     public ReactiveProperty<bool> CanJump = new ReactiveProperty<bool>();
@@ -37,10 +46,14 @@ public class StateManager : InputBase
 
     protected override void Start()
     {
-        base.Start();
-        _inputReader = _inputReaderInitializer.InputReader;
-        // Events
-        _inputReader.MoveEvent += OnMoveHandle;
+
+        if(UnitType.Value == EUnitType.Playable)
+        {
+            base.Start();
+            _inputReader = _inputReaderInitializer.InputReader;
+            _inputReader.MoveEvent += OnMoveHandle;
+        }
+
         // Reactive
         UnitState
             .Subscribe((state) =>

@@ -57,7 +57,6 @@ public class Attack : InputBase
         if (input)
         {
             if (_state.InputState.Value == EInputState.UnControl) return; // 操作不能ならReturn
-            if (_state.UnitState.Value != EUnitState.Free) return; // 自由操作可能じゃなければReturn
 
             PlayAction("A");
         }
@@ -78,7 +77,6 @@ public class Attack : InputBase
         if (input)
         {
             if (_state.InputState.Value == EInputState.UnControl) return; // 操作不能ならReturn
-            if (_state.UnitState.Value != EUnitState.Free) return; // 自由操作可能じゃなければReturn
 
             PlayAction("B");
         }
@@ -113,8 +111,7 @@ public class Attack : InputBase
             if (_flickDetector.IsFlicking && ground && keyType == "A") // はじき入力中
             {
                 _isSmash.Value = true; // スマッシュアクションフラグON
-                _motion.SetState(500); // スマッシュアクション実施
-                
+                _motion.SetState(StateManager.SmashState); // スマッシュアクション実施
                 _state.InputState.Value = EInputState.UnControl;
                 if (_smashEffect != null)
                     _smashEffect.SetActive(true);
@@ -206,7 +203,7 @@ public class Attack : InputBase
     /// </summary>
     private void AtkEnd()
     {
-        _motion.SetState(800);
+        _motion.SetState(StateManager.IdleState);
         _gravity.IsUnGravity = false;
         _state.OnFreeControl();
         _motion.SetApplyRootMotion(false);

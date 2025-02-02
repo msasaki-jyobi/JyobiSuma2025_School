@@ -124,14 +124,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attaker: {fileID: 0}
-  _audioSource: {fileID: 8758318928275137001}
-  _damageAmount: 6
-  _forcePower: 12
-  _forceUpMultiplier: -30
+  _damageAmount: 60
+  _damageState: 1100
+  _forcePower: 3.2
+  _forceUpMultiplier: 0
   _enableEffect: {fileID: 0}
   _hitEffect: {fileID: 1570927096764274, guid: 643639841fb531e4ba8097fed4eb9ac7, type: 3}
   _enableSE: {fileID: 0}
   _hitSE: {fileID: 8300000, guid: 03a7ffb8a1005654c89f99b08d0d6972, type: 3}
+  _unCollider: 0
   _enableCreateMagic: {fileID: 0}
   _lifeTime: 5
 --- !u!82 &8758318928275137001

@@ -3,14 +3,24 @@ using UniRx;
 using UnityEngine.InputSystem;
 using System;
 using Cysharp.Threading.Tasks;
+using UnityEngine.Windows;
 
+public enum EInputDirection
+{
+    XOnly,
+    All
+}
 public class Movement : InputBase
 {
+    [Header("AIM必要であればアタッチ")]
+    [SerializeField] private Aim _aim;
+    [Header("必須")]
     [SerializeField] private FlickDetector _flickDetector;
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private Animator _animator;
     [SerializeField] private StateManager _state;
     [SerializeField] private Gravity _gravity;
+    [SerializeField] private EInputDirection _inputDirection;
     [SerializeField] private float _maxSlopeAngle = 45f;
     [SerializeField] private float _slopeDistance = 0.2f;
     [field: SerializeField, Header("移動速度")] public float WalkPower { get; private set; } = 6f;
@@ -22,10 +32,12 @@ public class Movement : InputBase
     private Vector3 _inputVelocity; // 入力による移動ベクトル
     private Quaternion _targetRotation; // 入力による回転ベクトル
 
-    private float _rotateSpeed = 20000f;
+    private float _rotateSpeed = 2000;
     private float _defaultWalkPower;
 
     private InputAction _moveAction;
+    private Quaternion _aimRotation;
+
 
     protected override void Start()
     {
@@ -36,6 +48,14 @@ public class Movement : InputBase
 
         _moveAction = _inputReader.Control.Player.Move;
         _inputReader.CanceledMoveEvent += OnCanceledHandle;
+
+        // AIMチェック
+        if (_aim != null)
+            _aim.IsAiming
+                .Subscribe((isAiming) =>
+                {
+                    _targetRotation = _aimRotation;
+                });
     }
 
     private void Update()
@@ -44,7 +64,6 @@ public class Movement : InputBase
             InputReset();
         Move();
         Rotation();
-
     }
 
     private void OnCanceledHandle()
@@ -87,20 +106,35 @@ public class Movement : InputBase
 
         // カメラから見て向く方角を計算
         var tpsHorizontalRotation = Quaternion.AngleAxis(rotY, Vector3.up);
-        //_inputVelocity = tpsHorizontalRotation * new Vector3(_inputX, 0, _inputY).normalized;
-        _inputVelocity = tpsHorizontalRotation * new Vector3(_inputX, 0, 0).normalized;
-        var rotationSpeed = _rotateSpeed * Time.deltaTime;
 
-        // 移動方向を向く
-        if (_inputVelocity.magnitude > 0.5f)
-            _targetRotation = Quaternion.LookRotation(_inputVelocity, Vector3.up);
+        if (_inputDirection == EInputDirection.All)
+            _inputVelocity = tpsHorizontalRotation * new Vector3(_inputX, 0, _inputY).normalized;
+        else
+            _inputVelocity = tpsHorizontalRotation * new Vector3(_inputX, 0, 0).normalized;
+
+        // AIMチェック
+        var aimCheck = true;
+        aimCheck = aimCheck && _aim != null;
+        if (_aim != null) aimCheck = aimCheck && _aim.IsAiming.Value;
+
+        if (aimCheck)// AIM回転
+        {
+            _aimRotation = Quaternion.Euler(0, Camera.main.transform.eulerAngles.y, 0);
+            transform.rotation = _aimRotation;
+        }
+        else // TPS回転
+        {
+            // なめらかに振り向く計算
+            var rotationSpeed = _rotateSpeed * Time.deltaTime;
+            // 移動方向を向く
+            if (_inputVelocity.magnitude > 0.5f)
+                _targetRotation = Quaternion.LookRotation(_inputVelocity, Vector3.up);
+
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, _targetRotation, rotationSpeed);
+        }
 
         // 速度をAnimatorに反映する
         _animator?.SetFloat("Speed", _inputVelocity.magnitude, 0.1f, Time.deltaTime);
-
-        if (Mathf.Abs(_inputX) > 0)
-            // なめらかに振り向く
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, _targetRotation, rotationSpeed);
     }
 
     /// <summary>

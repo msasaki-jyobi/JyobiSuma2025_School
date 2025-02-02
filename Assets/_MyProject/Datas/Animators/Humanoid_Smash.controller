@@ -800,7 +800,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Humanoid
+  m_Name: Humanoid_Smash
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Speed

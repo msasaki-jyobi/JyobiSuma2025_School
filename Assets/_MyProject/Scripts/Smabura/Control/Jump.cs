@@ -46,6 +46,8 @@ public class Jump : InputBase
     /// </summary>
     private async void OnJump()
     {
+        if(_state.InputState.Value == EInputState.UnControl) return;
+
         if (_jumpCount < _jumpLimit)
         {
             IsJump.Value = true;

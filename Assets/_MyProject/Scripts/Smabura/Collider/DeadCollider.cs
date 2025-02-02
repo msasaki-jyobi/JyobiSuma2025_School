@@ -21,7 +21,7 @@ public class DeadCollider : MonoBehaviour
             AudioManager.Instance.PlayOneShot(HitSE, EAudioType.Se);
             UtilityFunction.PlayEffect(hit, HitEffect);
 
-            health.Dead();
+            health.SmashDead();
         }
     }
 }
